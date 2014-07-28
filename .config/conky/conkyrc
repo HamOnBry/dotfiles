@@ -1,0 +1,58 @@
+background yes
+alignment tr
+update_interval 1.0
+use_xft yes
+xftfont Liberation Mono:size=9
+#xftalpha 1
+total_run_times 0
+minimum_size: 290 1900
+maximum_width 290
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+gap_x 30
+gap_y 80
+default_color gray
+default_shade_color 000000
+default_outline_color gray
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+no_buffers yes
+uppercase no
+double_buffer yes
+use_spacer yes
+TEXT
+Battery: $battery_short $alignr$battery_time
+${battery_bar}
+
+Uptime: $alignr$uptime
+
+CPU Total: $alignr${cpu cpu0}%
+${cpubar cpu0}
+Core1: ${freq_g 1}Ghz$alignr${cpu cpu1}%
+${cpubar cpu1}
+Core2: ${freq_g 2}Ghz$alignr${cpu cpu2}%
+${cpubar cpu2}
+Core3: ${freq_g 3}Ghz$alignr${cpu cpu3}%
+${cpubar cpu3}
+Core4: ${freq_g 4}Ghz$alignr${cpu cpu4}%
+${cpubar cpu4}
+
+RAM: $alignr$mem/$memmax
+$membar
+FS:(/) $alignr${fs_used /}/${fs_size /}
+${fs_bar /}
+FS:(/home) $alignr${fs_used /home}/${fs_size /home}
+${fs_bar /home}
+SWP: $alignr$swap/$swapmax
+$swapbar
+
+Processes: $alignr$running_processes/$processes
+Threads: $alignr$running_threads/$threads
+
+Montreal: $alignr${tztime America/Montreal %H:%M:%S}
+Calgary: $alignr${tztime America/Edmonton %H:%M:%S}
+
