@@ -1,9 +1,31 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
+;; UI
+(load-theme 'ujelly t)
+(setq scroll-step 1)
+(defalias 'list-buffers 'ibuffer)
+;;(load "col-highlight")
+(global-hl-line-mode t)
+;;(column-highlight-mode)
+;;(set-face-background 'hl-line "3d4753")
+;;(set-face-background 'col-highlight "3d4753")
+;;(require 'linum)
+(setq linum-format "%d ")
+(global-linum-mode t)
+(line -number-mode 2)
+(setq-default indent-tabs-mode nil)
+
 ;;org-mode
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(setq org-log-done 'time)
+
+;;Auto-Insert
+(auto-insert-mode)  ;;; Adds hook to find-files-hook
+(setq auto-insert-directory "~/.emacs.d/templates/") ;;; Or use custom, *NOTE* Trailing slash important
+(setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
+(define-auto-insert "\.org" "template.org")
 
 ;;config for golang
 (load "go-mode.el")
@@ -14,23 +36,6 @@
 (ac-config-default)
 (require 'go-autocomplete)
 (add-to-list 'exec-path "~/projects/golang/bin")
-
-(setq scroll-step 1)
-
-;;(global-set-key (kbd "C-x C-b") 'ibuffer)
-(defalias 'list-buffers 'ibuffer)
-
-;;(load "col-highlight")
-(global-hl-line-mode 1)
-;;(column-highlight-mode)
-;;(set-face-background 'hl-line "3d4753")
-;;(set-face-background 'col-highlight "3d4753")
-
-(require 'linum)
-(setq linum-format "%d ")
-(global-linum-mode 1)
-
-(load-theme 'ujelly t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
