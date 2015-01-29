@@ -41,7 +41,7 @@ if has('gui_running')
     set co=120
     set number
     set background=dark
-    set guifont=Liberation\ Mono\ 10
+    set guifont=Cousine 10
 else
     set number
     set t_Co=256
@@ -56,7 +56,7 @@ set cursorline
 hi CursorLine term=bold cterm=none ctermbg=black gui=bold guibg=#000000
 set cursorcolumn
 hi CursorColumn term=bold cterm=none ctermbg=black guibg=#000000
-set guifont=Liberation\ Mono
+"set guifont=Cousine
  
 set wrapmargin=2
 set nowrap 
