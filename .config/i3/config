@@ -22,98 +22,54 @@ font pango:Hack 10
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
+# font, it doesn’
+#client.focused_inactive #888888 #2b2b2b #ffffff #2b2b2b
+#client.unfocused        #888888 #2b2b2b #ffffff #2b2b2b
+#client.urgent           #900000 #900000 #ffffff #2b2b2b
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 #set floating apps
+#for_window [class="^.*"] border normal 2
 for_window [window_role="pop-up"] floating enable
+for_window [window_role="TfrmFileOp" class="Doublecmd"] floating enable
 for_window [class="vlc"] floating enable
 for_window [class="vlc"] sticky enable
+for_window [window_role="pop-up"] floating enable
+for_window [class="Gsimplecal"] floating enable
 for_window [class="XCalc" instance="xcalc"] floating enable
+for_window [class="Kazam"] floating enable
+for_window [class="Solaar"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
 #for_window [class="Gimp"] floating disable
 #for_window [class="Gimp" title="Image Properties"] floating enable
 #for_window [class="Gimp" title="Print"] floating enable
 
-#set workspaces on specific monitors
-workspace 1 output VGA-1
-workspace 2 output VGA-1
-workspace 3 output VGA-1
-workspace 4 output VGA-1
-workspace 5 output VGA-1
-workspace 6 output HDMI-2
-workspace 7 output HDMI-2
-workspace 8 output HDMI-2
-workspace 9 output HDMI-2
-workspace 10 output HDMI-2
+# Assign Workspaces
+assign [class="Firefox"] 2
+assign [class="Chromium"] 2
+assign [class="x-terminal-emulator"] 1
+assign [class="URxvt"] 1
+assign [class="Code"] 3
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
 # lock the screen
-bindsym $mod+l exec xscreensaver-command -lock
-
- bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
- bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-
+bindsym $mod+Mod1+l exec xscreensaver-command -lock
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
+bindsym $mod+Shift+Return exec pcmanfm
+
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec rofi -show run -font "Cousine 10" -color-enabled -location 0
+bindsym $mod+d exec rofi -modi window#run#combi -show combi -font "Cousine 10" -color-enabled -location 6
+# bindsym $mod+d exec rofi -show run -font "Cousine 10" -color-enabled -location 6
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
-#move workspace to other monitor
-bindsym $mod+Control+Left move workspace to output left
-bindsym $mod+Control+Right move workspace to output right
-
-# change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
-bindsym $mod+h split h
-
-# split in vertical orientation
-bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
@@ -164,10 +120,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 1 px or 1 ppt
-        bindsym k resize grow height 1 px or 1 ppt
-        bindsym l resize shrink height 1 px or 1 ppt
-        bindsym semicolon resize grow width 1 px or 1 ppt
+        bindsym Shift+Left resize shrink width 1 px or 1 ppt
+        bindsym Shift+Down resize grow height 1 px or 1 ppt
+        bindsym Shift+Up resize shrink height 1 px or 1 ppt
+        bindsym Shift+Right resize grow width 1 px or 1 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -185,25 +141,25 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        font pango:Hack 11
+        font pango:Hack, FontAwesome 11
         tray_padding 3
-        tray_output VGA-1
         position top
-        #status_command ~/.i3/bumblebee-status/bumblebee-status -m disk:/ cpu memory battery date time pasink pasource -p time.format="%H:%M CW %V" date.format="%a, %b %d %Y"
         #status_command i3status
-        #status_command ~/.config/i3/i3status.sh
-        status_command i3blocks
+        #status_command i3blocks
+        status_command py3status -b -n 1 -l ~/.config/py3status/py3status.log -c ~/.config/py3status/config
 }
 
 # startup
-exec xrandr --auto --output HDMI-2 --right-of VGA-1 --primary
-exec xset b off &
-exec nitrogen --restore
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec synclient VertTwoFingercroll=1; synclient TapButton1=1; syndaemon -d -i 1
+# exec nitrogen --restore
+exec feh --bg-fill /usr/share/backgrounds/warty-final-ubuntu.png
 exec xfce4-volumed
-exec solaar
-exec pnmixer
-# exec conky -c ~/.config/conky/conkyrc-i3
-exec wicd-gtk --tray
-# exec redshift-gtk -c ~/.config/redshift.conf
-exec xscreensaver -no-splash &
+#exec pnmixer
+#exec conky -c ~/.config/conky/conkyrc-i3
 exec clipit
+#exec wicd-gtk --tray
+exec --no-startup-id nm-applet
+exec redshift-gtk
+#exec cbatticon -i symbolic -l 15 -r 3 -c "systemctl hibernate"
+exec xscreensaver -no-splash
