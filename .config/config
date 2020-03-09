@@ -1,0 +1,121 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+
+general {
+        colors = true
+        interval = 2
+}
+
+#       order += "window_title_async"
+order += "sysdata"
+order += "volume_status"
+#order += "frame net"
+order += "wifi"
+order += "vpn_status"
+#order += "keyboard_layout"
+order += "battery_level"
+order += "clock"
+
+window_title_async {
+    always_show = "True"
+}
+
+volume_status {
+    on_click 1 = "exec pavucontrol"
+    format = " {percentage}%"
+    format_muted = " muted"
+    command = "pactl"
+    button_up = 4
+    button_down = 5
+    button_mute = 3
+    #device = "pulse"
+    thresholds = [
+        (0, "#E6000"),
+        (10, "#E2571E"),
+        (20, "#FF7F00"),
+        (30, "#FFFF00"),
+        (40, "#00FF00"),
+        (50, "#96BF33"),
+        (60, "#0000FF"),
+        (70, "#4B0082"),
+        (80, "#8B00FF"),
+        (90, "#FFFFFF")
+    ]
+}
+
+
+clock {
+    #format = "{local}"
+    format_time = "  %Y-%m-%d   %H:%M"
+    on_click 1 = "exec gsimplecal"
+}
+
+
+frame net {
+    format = "{output}{button}"
+    format_separator = "  "
+
+
+    net_iplist {
+        format = "  {format_iface}"
+        format_iface = "{ip4}"
+        remove_empty = "true"
+        iface_blacklist = ['v*','d*','lo']
+    }
+
+
+    net_rate {
+        format = " {total}"
+    }
+}
+
+
+sysdata {
+    format = "[\?color=cpu  {cpu_usage}%] [\?color=mem  {mem_used}/{mem_total} GB]"
+    thresholds = [
+        (0, "#CFCFC4"),
+        (40, "#A7FC00"),
+        (50, "#EEE600"),
+        (60, "#F4C430"),
+        (70, "#ED9121"),
+        (80, "#E25822"),
+        (90, "#FF3800"),
+        (100, "#FF0000")
+    ]
+}
+
+
+keyboard_layout {
+    format_up = " {layout}"
+}
+
+wifi {
+    format_up = " {ssid} {icon} {signal_percent} {signal_dbm}"
+}
+
+vpn_status {
+    cache_timeout = 3
+    check_pid = "true"
+    pidfile = "/sys/class/net/tun0/dev_id"
+    #on_click 1 = "gksudo /usr/sbin/openvpn --config ~/vpn/hitachi.opvn"
+}
+
+battery_level {
+    blocks = ""
+    format = "{icon} {percent}% {time_remaining}"
+    hide_when_full = "False"
+    format_notify_charging = "{icon} {percent}%"
+    format_notify_discharging = "{icon} {percent}% {time_remaining}"
+    charging_character = ""
+    hide_seconds = "True"
+    #notification = "True"
+    #measurement_mode = "acpi"
+    
+}
