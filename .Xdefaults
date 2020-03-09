@@ -10,7 +10,7 @@ URxvt*scrollBar_right:false
 
 !colours
 URxvt*background:Black
-URxvt*foreground:White
+URxvt*foreground:Grey
 
 *color0:  #2E3436
 *color1:  #a40000
@@ -30,8 +30,8 @@ URxvt*foreground:White
 *color15: #EEEEEC
 
 !font
-URxvt*font: xft:Hack:pixelsize=13
-URxvt*letterSpace: 0
+URxvt*font: xft:Hack:pixelsize=14
+URxvt*letterSpace: -2
 
 URxvt*urgentOnBell: true
 
